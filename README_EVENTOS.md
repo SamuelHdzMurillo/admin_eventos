@@ -2,6 +2,28 @@
 
 Este sistema permite gestionar eventos gastronómicos, equipos participantes, participantes, acompañantes, recetas y cédulas de registro.
 
+## 🔐 **Sistema de Autenticación**
+
+El sistema incluye autenticación completa con roles de usuario:
+
+-   **`admin`** - Acceso completo a todas las funcionalidades
+-   **`usuario`** - Acceso limitado (solo lectura)
+
+### **Usuarios de Prueba:**
+
+-   **Admin:** `admin@eventos.com` / `admin123`
+-   **Usuario:** `usuario@eventos.com` / `usuario123`
+
+### **Endpoints de Autenticación:**
+
+-   `POST /api/register` - Registro de usuario
+-   `POST /api/login` - Inicio de sesión
+-   `POST /api/logout` - Cerrar sesión
+-   `GET /api/me` - Perfil del usuario
+-   `PUT /api/profile` - Actualizar perfil
+
+**Ver documentación completa en:** [README_AUTH.md](README_AUTH.md)
+
 ## Estructura de la Base de Datos
 
 ### Tablas Principales
@@ -29,54 +51,56 @@ php artisan db:seed
 
 ## API Endpoints
 
+### **⚠️ IMPORTANTE:** Todas las rutas requieren autenticación
+
 ### Eventos
 
 -   `GET /api/eventos` - Listar todos los eventos
--   `POST /api/eventos` - Crear un nuevo evento
+-   `POST /api/eventos` - Crear un nuevo evento (solo admin)
 -   `GET /api/eventos/{id}` - Obtener un evento específico
--   `PUT /api/eventos/{id}` - Actualizar un evento
--   `DELETE /api/eventos/{id}` - Eliminar un evento
+-   `PUT /api/eventos/{id}` - Actualizar un evento (solo admin)
+-   `DELETE /api/eventos/{id}` - Eliminar un evento (solo admin)
 
 ### Equipos
 
 -   `GET /api/equipos` - Listar todos los equipos
--   `POST /api/equipos` - Crear un nuevo equipo
+-   `POST /api/equipos` - Crear un nuevo equipo (solo admin)
 -   `GET /api/equipos/{id}` - Obtener un equipo específico
--   `PUT /api/equipos/{id}` - Actualizar un equipo
--   `DELETE /api/equipos/{id}` - Eliminar un equipo
+-   `PUT /api/equipos/{id}` - Actualizar un equipo (solo admin)
+-   `DELETE /api/equipos/{id}` - Eliminar un equipo (solo admin)
 -   `GET /api/equipos/{id}/completo` - Obtener equipo con toda la información relacionada
 
 ### Participantes
 
 -   `GET /api/participantes` - Listar todos los participantes
--   `POST /api/participantes` - Crear un nuevo participante
+-   `POST /api/participantes` - Crear un nuevo participante (solo admin)
 -   `GET /api/participantes/{id}` - Obtener un participante específico
--   `PUT /api/participantes/{id}` - Actualizar un participante
--   `DELETE /api/participantes/{id}` - Eliminar un participante
+-   `PUT /api/participantes/{id}` - Actualizar un participante (solo admin)
+-   `DELETE /api/participantes/{id}` - Eliminar un participante (solo admin)
 
 ### Acompañantes
 
 -   `GET /api/acompanantes` - Listar todos los acompañantes
--   `POST /api/acompanantes` - Crear un nuevo acompañante
+-   `POST /api/acompanantes` - Crear un nuevo acompañante (solo admin)
 -   `GET /api/acompanantes/{id}` - Obtener un acompañante específico
--   `PUT /api/acompanantes/{id}` - Actualizar un acompañante
--   `DELETE /api/acompanantes/{id}` - Eliminar un acompañante
+-   `PUT /api/acompanantes/{id}` - Actualizar un acompañante (solo admin)
+-   `DELETE /api/acompanantes/{id}` - Eliminar un acompañante (solo admin)
 
 ### Recetas
 
 -   `GET /api/recetas` - Listar todas las recetas
--   `POST /api/recetas` - Crear una nueva receta
+-   `POST /api/recetas` - Crear una nueva receta (solo admin)
 -   `GET /api/recetas/{id}` - Obtener una receta específica
--   `PUT /api/recetas/{id}` - Actualizar una receta
--   `DELETE /api/recetas/{id}` - Eliminar una receta
+-   `PUT /api/recetas/{id}` - Actualizar una receta (solo admin)
+-   `DELETE /api/recetas/{id}` - Eliminar una receta (solo admin)
 
 ### Cédulas de Registro
 
 -   `GET /api/cedulas-registro` - Listar todas las cédulas
--   `POST /api/cedulas-registro` - Crear una nueva cédula
+-   `POST /api/cedulas-registro` - Crear una nueva cédula (solo admin)
 -   `GET /api/cedulas-registro/{id}` - Obtener una cédula específica
--   `PUT /api/cedulas-registro/{id}` - Actualizar una cédula
--   `DELETE /api/cedulas-registro/{id}` - Eliminar una cédula
+-   `PUT /api/cedulas-registro/{id}` - Actualizar una cédula (solo admin)
+-   `DELETE /api/cedulas-registro/{id}` - Eliminar una cédula (solo admin)
 
 ## Características Principales
 
@@ -101,25 +125,43 @@ El endpoint `GET /api/equipos/{id}/completo` devuelve un equipo con toda la info
 
 ## Ejemplos de Uso
 
-### Crear un Evento
+### **1. Autenticación (requerido para todas las operaciones)**
 
-```json
-POST /api/eventos
-{
+```bash
+# Login para obtener token
+curl -X POST http://localhost:8000/api/login \
+  -H "Content-Type: application/json" \
+  -d '{"email": "admin@eventos.com", "password": "admin123"}'
+
+# Usar el token en las siguientes peticiones
+curl -H "Authorization: Bearer {TOKEN}" \
+  -H "Content-Type: application/json" \
+  http://localhost:8000/api/eventos
+```
+
+### **2. Crear un Evento (solo admin)**
+
+```bash
+curl -X POST http://localhost:8000/api/eventos \
+  -H "Authorization: Bearer {ADMIN_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
     "nombre_evento": "Concurso Regional de Cocina",
     "inicio_evento": "2024-09-15 09:00:00",
     "fin_evento": "2024-09-17 18:00:00",
     "sede_evento": "Auditorio Principal",
     "lim_de_participantes_evento": 100,
     "estatus_evento": "activo"
-}
+  }'
 ```
 
-### Crear un Equipo
+### **3. Crear un Equipo (solo admin)**
 
-```json
-POST /api/equipos
-{
+```bash
+curl -X POST http://localhost:8000/api/equipos \
+  -H "Authorization: Bearer {ADMIN_TOKEN}" \
+  -H "Content-Type: application/json" \
+  -d '{
     "nombre_equipo": "Los Sabores del Norte",
     "evento_id": 1,
     "entidad_federativa": "Nuevo León",
@@ -127,29 +169,15 @@ POST /api/equipos
     "nombre_anfitrion": "María González",
     "telefono_anfitrion": "8181234567",
     "correo_anfitrion": "maria.gonzalez@email.com"
-}
+  }'
 ```
 
-### Crear un Participante
+### **4. Obtener Equipo Completo (cualquier usuario autenticado)**
 
-```json
-POST /api/participantes
-{
-    "equipo_id": 1,
-    "nombre_participante": "Juan Pérez",
-    "rol_participante": "Chef Principal",
-    "talla_participante": "M",
-    "telefono_participante": "8181111111",
-    "matricula_participante": "2024001",
-    "correo_participante": "juan.perez@email.com",
-    "plantel_participante": "Instituto Culinario",
-    "plantelcct": "19DCT0001A",
-    "semestre_participante": "6to",
-    "especialidad_participante": "Cocina Internacional",
-    "seguro_facultativo": true,
-    "tipo_sangre_participante": "O+",
-    "alergico": false
-}
+```bash
+curl -H "Authorization: Bearer {TOKEN}" \
+  -H "Content-Type: application/json" \
+  http://localhost:8000/api/equipos/1/completo
 ```
 
 ## Validaciones
@@ -161,6 +189,7 @@ El sistema incluye validaciones para:
 -   Existencia de IDs relacionados
 -   Tipos de datos correctos
 -   Estados válidos para enums
+-   **Autenticación y autorización por roles**
 
 ## Respuestas de la API
 
@@ -176,6 +205,9 @@ Todas las respuestas siguen el formato:
 
 ## Notas Importantes
 
+-   **Todas las rutas requieren autenticación** con token Bearer
+-   **Solo los administradores** pueden crear/editar/eliminar entidades
+-   **Los usuarios regulares** solo pueden ver información
 -   Las migraciones deben ejecutarse en el orden correcto debido a las dependencias de claves foráneas
 -   Los seeders incluyen datos de ejemplo para probar el sistema
 -   El sistema maneja eliminación en cascada para mantener la integridad referencial

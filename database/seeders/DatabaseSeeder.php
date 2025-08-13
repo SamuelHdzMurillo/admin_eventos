@@ -21,6 +21,7 @@ class DatabaseSeeder extends Seeder
 
         // Ejecutar seeders en orden de dependencias
         $this->call([
+            UserSeeder::class,
             EventoSeeder::class,
             EquipoSeeder::class,
             ParticipanteSeeder::class,
