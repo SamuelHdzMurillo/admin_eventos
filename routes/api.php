@@ -49,6 +49,7 @@ Route::middleware('auth:sanctum')->group(function () {
     
     Route::get('/participantes', [ParticipanteController::class, 'index']);
     Route::get('/participantes/{participante}', [ParticipanteController::class, 'show']);
+    Route::get('/participantes/{participante}/credencial', [ParticipanteController::class, 'getCredencialImage']);
     
     Route::get('/acompanantes', [AcompananteController::class, 'index']);
     Route::get('/acompanantes/{acompanante}', [AcompananteController::class, 'show']);
