@@ -20,16 +20,19 @@ class AuthController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8|confirmed',
-            'role' => 'sometimes|in:admin,usuario'
+            'role' => 'sometimes|in:admin,usuario',
+            'evento_id' => 'sometimes|nullable|exists:eventos,id'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role ?? 'usuario'
+            'role' => $request->role ?? 'usuario',
+            'evento_id' => $request->evento_id
         ]);
 
+        $user->load('evento');
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -37,6 +40,7 @@ class AuthController extends Controller
             'message' => 'Usuario registrado exitosamente',
             'data' => [
                 'user' => $user,
+                'evento' => $user->evento,
                 'token' => $token,
                 'token_type' => 'Bearer'
             ]
@@ -59,7 +63,7 @@ class AuthController extends Controller
             ]);
         }
 
-        $user = User::where('email', $request->email)->firstOrFail();
+        $user = User::with('evento')->where('email', $request->email)->firstOrFail();
         $token = $user->createToken('auth_token')->plainTextToken;
 
         return response()->json([
@@ -67,6 +71,7 @@ class AuthController extends Controller
             'message' => 'Inicio de sesión exitoso',
             'data' => [
                 'user' => $user,
+                'evento' => $user->evento,
                 'token' => $token,
                 'token_type' => 'Bearer'
             ]
@@ -91,11 +96,14 @@ class AuthController extends Controller
      */
     public function me(Request $request): JsonResponse
     {
-        $user = $request->user();
+        $user = $request->user()->load('evento');
 
         return response()->json([
             'success' => true,
-            'data' => $user
+            'data' => [
+                'user' => $user,
+                'evento' => $user->evento,
+            ]
         ]);
     }
 

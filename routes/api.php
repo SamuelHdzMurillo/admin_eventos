@@ -61,7 +61,7 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/cedulas-registro/{cedulaRegistro}', [CedulaRegistroController::class, 'show']);
 
     // Rutas solo para administradores
-    Route::middleware('role:admin')->group(function () {
+   // Route::middleware('role:admin')->group(function () {
         
         // Administración de usuarios
         Route::apiResource('admin/users', AdminController::class);
@@ -69,21 +69,21 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('admin/users-stats', [AdminController::class, 'stats']);
         
         // CRUD completo para eventos
-        Route::apiResource('eventos', EventoController::class)->except(['index', 'show']);
+        Route::apiResource('eventos', EventoController::class);
         
         // CRUD completo para equipos
-        Route::apiResource('equipos', EquipoController::class)->except(['index', 'show']);
+        Route::apiResource('equipos', EquipoController::class);
         
         // CRUD completo para participantes
-        Route::apiResource('participantes', ParticipanteController::class)->except(['index', 'show']);
+        Route::apiResource('participantes', ParticipanteController::class);
         
         // CRUD completo para acompañantes
-        Route::apiResource('acompanantes', AcompananteController::class)->except(['index', 'show']);
+        Route::apiResource('acompanantes', AcompananteController::class);
         
         // CRUD completo para recetas
-        Route::apiResource('recetas', RecetaController::class)->except(['index', 'show']);
+        Route::apiResource('recetas', RecetaController::class);
         
         // CRUD completo para cédulas de registro
-        Route::apiResource('cedulas-registro', CedulaRegistroController::class)->except(['index', 'show']);
-    });
+        Route::apiResource('cedulas-registro', CedulaRegistroController::class);
+   // });
 });

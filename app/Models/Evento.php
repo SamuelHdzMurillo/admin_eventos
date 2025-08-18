@@ -30,4 +30,10 @@ class Evento extends Model
     {
         return $this->hasMany(Equipo::class);
     }
+
+    // Relación con usuarios
+    public function usuarios()
+    {
+        return $this->hasMany(User::class);
+    }
 } 

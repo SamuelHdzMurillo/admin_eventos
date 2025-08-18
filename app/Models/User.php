@@ -22,6 +22,7 @@ class User extends Authenticatable
         'email',
         'password',
         'role',
+        'evento_id',
     ];
 
     /**
@@ -66,5 +67,13 @@ class User extends Authenticatable
     public function hasAnyRole(array $roles): bool
     {
         return in_array($this->role, $roles);
+    }
+
+    /**
+     * Evento asociado al usuario
+     */
+    public function evento()
+    {
+        return $this->belongsTo(Evento::class);
     }
 }
