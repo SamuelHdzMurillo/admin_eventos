@@ -27,7 +27,7 @@ Route::post('/register', [AuthController::class, 'register']);
 Route::post('/login', [AuthController::class, 'login']);
 
 // Rutas protegidas (requieren autenticación)
-Route::middleware('auth:sanctum')->group(function () {
+//Route::middleware('auth:sanctum')->group(function () {
     
     // Información del usuario autenticado
     Route::get('/user', function (Request $request) {
@@ -86,4 +86,4 @@ Route::middleware('auth:sanctum')->group(function () {
         // CRUD completo para cédulas de registro
         Route::apiResource('cedulas-registro', CedulaRegistroController::class);
    // });
-});
+//});
