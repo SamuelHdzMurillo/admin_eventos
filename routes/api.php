@@ -8,6 +8,7 @@ use App\Http\Controllers\ParticipanteController;
 use App\Http\Controllers\AcompananteController;
 use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\CedulaRegistroController;
+use App\Http\Controllers\HospedajeController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
@@ -59,6 +60,9 @@ Route::post('/login', [AuthController::class, 'login']);
     
     Route::get('/cedulas-registro', [CedulaRegistroController::class, 'index']);
     Route::get('/cedulas-registro/{cedulaRegistro}', [CedulaRegistroController::class, 'show']);
+    
+    Route::get('/hospedajes', [HospedajeController::class, 'index']);
+    Route::get('/hospedajes/{hospedaje}', [HospedajeController::class, 'show']);
 
     // Rutas solo para administradores
    // Route::middleware('role:admin')->group(function () {
@@ -85,5 +89,8 @@ Route::post('/login', [AuthController::class, 'login']);
         
         // CRUD completo para cédulas de registro
         Route::apiResource('cedulas-registro', CedulaRegistroController::class);
+        
+        // CRUD completo para hospedajes
+        Route::apiResource('hospedajes', HospedajeController::class);
    // });
 //});
