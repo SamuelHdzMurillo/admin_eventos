@@ -42,14 +42,16 @@ class AdminController extends Controller
             'name' => 'required|string|max:255',
             'email' => 'required|string|email|max:255|unique:users',
             'password' => 'required|string|min:8',
-            'role' => 'required|in:admin,usuario'
+            'role' => 'required|in:admin,usuario',
+            'evento_id' => 'nullable|exists:eventos,id'
         ]);
 
         $user = User::create([
             'name' => $request->name,
             'email' => $request->email,
             'password' => Hash::make($request->password),
-            'role' => $request->role
+            'role' => $request->role,
+            'evento_id' => $request->evento_id
         ]);
 
         return response()->json([
@@ -68,7 +70,8 @@ class AdminController extends Controller
             'name' => 'sometimes|string|max:255',
             'email' => 'sometimes|string|email|max:255|unique:users,email,' . $user->id,
             'password' => 'sometimes|string|min:8',
-            'role' => 'sometimes|in:admin,usuario'
+            'role' => 'sometimes|in:admin,usuario',
+            'evento_id' => 'sometimes|nullable|exists:eventos,id'
         ]);
 
         if ($request->has('name')) {
@@ -85,6 +88,10 @@ class AdminController extends Controller
 
         if ($request->has('role')) {
             $user->role = $request->role;
+        }
+
+        if ($request->has('evento_id')) {
+            $user->evento_id = $request->evento_id;
         }
 
         $user->save();
@@ -160,6 +167,40 @@ class AdminController extends Controller
                 'admin_users' => $adminUsers,
                 'regular_users' => $regularUsers
             ]
+        ]);
+    }
+
+    /**
+     * Asignar usuario a un evento específico (solo admin)
+     */
+    public function assignToEvent(Request $request, User $user): JsonResponse
+    {
+        $request->validate([
+            'evento_id' => 'required|exists:eventos,id'
+        ]);
+
+        $user->evento_id = $request->evento_id;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario asignado al evento exitosamente',
+            'data' => $user->load('evento')
+        ]);
+    }
+
+    /**
+     * Remover usuario de un evento (solo admin)
+     */
+    public function removeFromEvent(User $user): JsonResponse
+    {
+        $user->evento_id = null;
+        $user->save();
+
+        return response()->json([
+            'success' => true,
+            'message' => 'Usuario removido del evento exitosamente',
+            'data' => $user
         ]);
     }
 } 

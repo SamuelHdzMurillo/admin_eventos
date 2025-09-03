@@ -71,6 +71,8 @@ Route::post('/login', [AuthController::class, 'login']);
         Route::apiResource('admin/users', AdminController::class);
         Route::put('admin/users/{user}/role', [AdminController::class, 'changeRole']);
         Route::get('admin/users-stats', [AdminController::class, 'stats']);
+        Route::put('admin/users/{user}/assign-event', [AdminController::class, 'assignToEvent']);
+        Route::put('admin/users/{user}/remove-event', [AdminController::class, 'removeFromEvent']);
         
         // CRUD completo para eventos
         Route::apiResource('eventos', EventoController::class);
