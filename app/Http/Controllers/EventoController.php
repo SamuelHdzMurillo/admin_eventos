@@ -22,6 +22,19 @@ class EventoController extends Controller
     }
 
     /**
+     * Display a listing of events with only id and name.
+     */
+    public function list(): JsonResponse
+    {
+        $eventos = Evento::select('id', 'nombre_evento')->get();
+        
+        return response()->json([
+            'success' => true,
+            'data' => $eventos
+        ]);
+    }
+
+    /**
      * Store a newly created resource in storage.
      */
     public function store(Request $request): JsonResponse

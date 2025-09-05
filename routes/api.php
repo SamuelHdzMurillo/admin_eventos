@@ -42,6 +42,7 @@ Route::post('/login', [AuthController::class, 'login']);
 
     // Rutas para usuarios autenticados (cualquier rol)
     Route::get('/eventos', [EventoController::class, 'index']);
+    Route::get('/eventos/list', [EventoController::class, 'list']);
     Route::get('/eventos/{evento}', [EventoController::class, 'show']);
     
     Route::get('/equipos', [EquipoController::class, 'index']);
