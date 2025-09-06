@@ -29,6 +29,7 @@ class DatabaseSeeder extends Seeder
             RecetaSeeder::class,
             CedulaRegistroSeeder::class,
             HospedajeSeeder::class,
+            RestauranteSeeder::class,
         ]);
     }
 }
