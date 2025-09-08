@@ -11,6 +11,7 @@ use App\Http\Controllers\CedulaRegistroController;
 use App\Http\Controllers\HospedajeController;
 use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\ComiteController;
+use App\Http\Controllers\LugarInteresController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
@@ -73,6 +74,9 @@ Route::post('/login', [AuthController::class, 'login']);
     
     Route::get('/comites', [ComiteController::class, 'index']);
     Route::get('/comites/{comite}', [ComiteController::class, 'show']);
+    
+    Route::get('/lugares-interes', [LugarInteresController::class, 'index']);
+    Route::get('/lugares-interes/{lugarInteres}', [LugarInteresController::class, 'show']);
 
     // Rutas solo para administradores
    // Route::middleware('role:admin')->group(function () {
@@ -110,5 +114,8 @@ Route::post('/login', [AuthController::class, 'login']);
         
         // CRUD completo para comités
         Route::apiResource('comites', ComiteController::class);
+        
+        // CRUD completo para lugares de interés
+        Route::apiResource('lugares-interes', LugarInteresController::class);
    // });
 //});
