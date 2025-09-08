@@ -31,6 +31,7 @@ class DatabaseSeeder extends Seeder
             HospedajeSeeder::class,
             RestauranteSeeder::class,
             ComiteSeeder::class,
+            BuzonAsistenciaSeeder::class,
         ]);
     }
 }

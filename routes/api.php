@@ -12,6 +12,7 @@ use App\Http\Controllers\HospedajeController;
 use App\Http\Controllers\RestauranteController;
 use App\Http\Controllers\ComiteController;
 use App\Http\Controllers\LugarInteresController;
+use App\Http\Controllers\BuzonAsistenciaController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
@@ -77,6 +78,10 @@ Route::post('/login', [AuthController::class, 'login']);
     
     Route::get('/lugares-interes', [LugarInteresController::class, 'index']);
     Route::get('/lugares-interes/{lugarInteres}', [LugarInteresController::class, 'show']);
+    
+    // Rutas para buzón de asistencia (públicas para envío de mensajes)
+    Route::post('/buzon-asistencia', [BuzonAsistenciaController::class, 'store']);
+    Route::get('/buzon-asistencia/estado/{estado}', [BuzonAsistenciaController::class, 'porEstado']);
 
     // Rutas solo para administradores
    // Route::middleware('role:admin')->group(function () {
@@ -117,5 +122,9 @@ Route::post('/login', [AuthController::class, 'login']);
         
         // CRUD completo para lugares de interés
         Route::apiResource('lugares-interes', LugarInteresController::class);
+        
+        // CRUD completo para buzón de asistencia (solo administradores)
+        Route::apiResource('buzon-asistencia', BuzonAsistenciaController::class);
+        Route::put('buzon-asistencia/{id}/marcar-atendido', [BuzonAsistenciaController::class, 'marcarAtendido']);
    // });
 //});
