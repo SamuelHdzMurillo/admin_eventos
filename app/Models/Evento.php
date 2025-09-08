@@ -36,4 +36,10 @@ class Evento extends Model
     {
         return $this->hasMany(User::class);
     }
+
+    // Relación con comités
+    public function comites()
+    {
+        return $this->hasMany(Comite::class);
+    }
 } 

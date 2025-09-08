@@ -10,6 +10,7 @@ use App\Http\Controllers\RecetaController;
 use App\Http\Controllers\CedulaRegistroController;
 use App\Http\Controllers\HospedajeController;
 use App\Http\Controllers\RestauranteController;
+use App\Http\Controllers\ComiteController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\AdminController;
 
@@ -69,6 +70,9 @@ Route::post('/login', [AuthController::class, 'login']);
     Route::get('/restaurantes', [RestauranteController::class, 'index']);
     Route::get('/restaurantes/{restaurante}', [RestauranteController::class, 'show']);
     Route::get('/restaurantes/{restaurante}/imagen', [RestauranteController::class, 'getImagen']);
+    
+    Route::get('/comites', [ComiteController::class, 'index']);
+    Route::get('/comites/{comite}', [ComiteController::class, 'show']);
 
     // Rutas solo para administradores
    // Route::middleware('role:admin')->group(function () {
@@ -103,5 +107,8 @@ Route::post('/login', [AuthController::class, 'login']);
         
         // CRUD completo para restaurantes
         Route::apiResource('restaurantes', RestauranteController::class);
+        
+        // CRUD completo para comités
+        Route::apiResource('comites', ComiteController::class);
    // });
 //});

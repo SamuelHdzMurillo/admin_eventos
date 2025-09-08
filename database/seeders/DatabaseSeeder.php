@@ -30,6 +30,7 @@ class DatabaseSeeder extends Seeder
             CedulaRegistroSeeder::class,
             HospedajeSeeder::class,
             RestauranteSeeder::class,
+            ComiteSeeder::class,
         ]);
     }
 }
