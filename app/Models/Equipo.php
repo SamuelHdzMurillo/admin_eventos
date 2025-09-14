@@ -50,4 +50,10 @@ class Equipo extends Model
     {
         return $this->hasMany(CedulaRegistro::class);
     }
+
+    // Relación con usuarios
+    public function usuarios()
+    {
+        return $this->hasMany(User::class);
+    }
 } 

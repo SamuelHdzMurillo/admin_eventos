@@ -23,6 +23,7 @@ class User extends Authenticatable
         'password',
         'role',
         'evento_id',
+        'equipo_id',
     ];
 
     /**
@@ -75,5 +76,13 @@ class User extends Authenticatable
     public function evento()
     {
         return $this->belongsTo(Evento::class);
+    }
+
+    /**
+     * Equipo asociado al usuario
+     */
+    public function equipo()
+    {
+        return $this->belongsTo(Equipo::class);
     }
 }
