@@ -11,7 +11,8 @@ class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
-     */ 
+     */
+    public function run()
     {
         $evento = Evento::first();
 
