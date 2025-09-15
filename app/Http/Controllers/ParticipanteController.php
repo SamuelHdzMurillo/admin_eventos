@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Participante;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class ParticipanteController extends Controller
 {
@@ -39,7 +37,7 @@ class ParticipanteController extends Controller
             'plantel_participante' => 'required|string|max:255',
             'plantelcct' => 'required|string|max:50',
             'medicamentos' => 'nullable|string',
-            'foto_credencial' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB máximo
+            'foto_credencial' => 'nullable|string|url|max:500', // URL de imagen
             'semestre_participante' => 'required|string|max:50',
             'especialidad_participante' => 'required|string|max:255',
             'seguro_facultativo' => 'boolean',
@@ -50,17 +48,8 @@ class ParticipanteController extends Controller
 
         $data = $request->all();
 
-        // Procesar la imagen si se subió
-        if ($request->hasFile('foto_credencial')) {
-            $image = $request->file('foto_credencial');
-            $imageName = 'credencial_' . Str::random(10) . '_' . time() . '.' . $image->getClientOriginalExtension();
-            
-            // Guardar la imagen en storage/app/public/credenciales
-            $image->storeAs('public/credenciales', $imageName);
-            
-            // Guardar la ruta de la imagen en la base de datos
-            $data['foto_credencial'] = 'credenciales/' . $imageName;
-        }
+        // La foto_credencial ahora es una URL que se guarda directamente
+        // No se requiere procesamiento adicional
 
         $participante = Participante::create($data);
 
@@ -100,7 +89,7 @@ class ParticipanteController extends Controller
             'plantel_participante' => 'sometimes|string|max:255',
             'plantelcct' => 'sometimes|string|max:50',
             'medicamentos' => 'nullable|string',
-            'foto_credencial' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // 2MB máximo
+            'foto_credencial' => 'nullable|string|url|max:500', // URL de imagen
             'semestre_participante' => 'sometimes|string|max:50',
             'especialidad_participante' => 'sometimes|string|max:255',
             'seguro_facultativo' => 'sometimes|boolean',
@@ -111,22 +100,8 @@ class ParticipanteController extends Controller
 
         $data = $request->all();
 
-        // Procesar la nueva imagen si se subió
-        if ($request->hasFile('foto_credencial')) {
-            // Eliminar la imagen anterior si existe
-            if ($participante->foto_credencial && Storage::disk('public')->exists($participante->foto_credencial)) {
-                Storage::disk('public')->delete($participante->foto_credencial);
-            }
-
-            $image = $request->file('foto_credencial');
-            $imageName = 'credencial_' . Str::random(10) . '_' . time() . '.' . $image->getClientOriginalExtension();
-            
-            // Guardar la nueva imagen
-            $image->storeAs('public/credenciales', $imageName);
-            
-            // Actualizar la ruta de la imagen
-            $data['foto_credencial'] = 'credenciales/' . $imageName;
-        }
+        // La foto_credencial ahora es una URL que se guarda directamente
+        // No se requiere procesamiento adicional
 
         $participante->update($data);
 
