@@ -27,7 +27,8 @@ class LugarInteresController extends Controller
             'direccion' => 'required|string',
             'web' => 'nullable|url',
             'estatus' => 'required|in:activo,inactivo',
-            'descripcion' => 'nullable|string'
+            'descripcion' => 'nullable|string',
+            'img' => 'nullable|string'
         ]);
 
         $lugar = LugarInteres::create($request->all());
@@ -53,7 +54,8 @@ class LugarInteresController extends Controller
             'direccion' => 'sometimes|required|string',
             'web' => 'nullable|url',
             'estatus' => 'sometimes|required|in:activo,inactivo',
-            'descripcion' => 'nullable|string'
+            'descripcion' => 'nullable|string',
+            'img' => 'nullable|string'
         ]);
 
         $lugar = LugarInteres::findOrFail($id);

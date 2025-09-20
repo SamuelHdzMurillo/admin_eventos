@@ -16,7 +16,8 @@ class LugarInteres extends Model
         'direccion',
         'web',
         'estatus',
-        'descripcion'
+        'descripcion',
+        'img'
     ];
 
     protected $casts = [
