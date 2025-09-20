@@ -5,8 +5,6 @@ namespace App\Http\Controllers;
 use App\Models\Restaurante;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Str;
 
 class RestauranteController extends Controller
 {
@@ -37,24 +35,10 @@ class RestauranteController extends Controller
             'pagina_web' => 'nullable|url|max:255',
             'codigo_promocional' => 'nullable|string|max:50',
             'descripcion_codigo_promocional' => 'nullable|string',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen' => 'nullable|string|max:500'
         ]);
 
-        $data = $request->all();
-
-        // Procesar la imagen si se subió
-        if ($request->hasFile('imagen')) {
-            $image = $request->file('imagen');
-            $imageName = 'restaurante_' . Str::random(10) . '_' . time() . '.' . $image->getClientOriginalExtension();
-            
-            // Guardar la imagen
-            $image->storeAs('public/restaurantes', $imageName);
-            
-            // Actualizar la ruta de la imagen
-            $data['imagen'] = 'restaurantes/' . $imageName;
-        }
-
-        $restaurante = Restaurante::create($data);
+        $restaurante = Restaurante::create($request->all());
 
         return response()->json([
             'success' => true,
@@ -106,29 +90,10 @@ class RestauranteController extends Controller
             'pagina_web' => 'nullable|url|max:255',
             'codigo_promocional' => 'nullable|string|max:50',
             'descripcion_codigo_promocional' => 'nullable|string',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048'
+            'imagen' => 'nullable|string|max:500'
         ]);
 
-        $data = $request->all();
-
-        // Procesar la nueva imagen si se subió
-        if ($request->hasFile('imagen')) {
-            // Eliminar la imagen anterior si existe
-            if ($restaurante->imagen && Storage::disk('public')->exists($restaurante->imagen)) {
-                Storage::disk('public')->delete($restaurante->imagen);
-            }
-
-            $image = $request->file('imagen');
-            $imageName = 'restaurante_' . Str::random(10) . '_' . time() . '.' . $image->getClientOriginalExtension();
-            
-            // Guardar la nueva imagen
-            $image->storeAs('public/restaurantes', $imageName);
-            
-            // Actualizar la ruta de la imagen
-            $data['imagen'] = 'restaurantes/' . $imageName;
-        }
-
-        $restaurante->update($data);
+        $restaurante->update($request->all());
 
         return response()->json([
             'success' => true,
@@ -160,7 +125,7 @@ class RestauranteController extends Controller
     }
 
     /**
-     * Get the image of the specified restaurant.
+     * Get the image URL of the specified restaurant.
      */
     public function getImagen(string $id): JsonResponse
     {
@@ -173,22 +138,11 @@ class RestauranteController extends Controller
             ], 404);
         }
 
-        if (!$restaurante->imagen) {
-            return response()->json([
-                'success' => false,
-                'message' => 'No hay imagen disponible para este restaurante'
-            ], 404);
-        }
-
-        $imagePath = storage_path('app/public/' . $restaurante->imagen);
-
-        if (!file_exists($imagePath)) {
-            return response()->json([
-                'success' => false,
-                'message' => 'La imagen no existe en el servidor'
-            ], 404);
-        }
-
-        return response()->file($imagePath);
+        return response()->json([
+            'success' => true,
+            'data' => [
+                'imagen' => $restaurante->imagen
+            ]
+        ]);
     }
 }

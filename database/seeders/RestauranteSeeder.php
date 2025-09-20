@@ -22,7 +22,7 @@ class RestauranteSeeder extends Seeder
                 'pagina_web' => 'https://www.elbuensabor.com',
                 'codigo_promocional' => 'DESCUENTO20',
                 'descripcion_codigo_promocional' => '20% de descuento en el menú del día',
-                'imagen' => null
+                'img' => null
             ],
             [
                 'nombre' => 'La Cocina Tradicional',
@@ -33,7 +33,7 @@ class RestauranteSeeder extends Seeder
                 'pagina_web' => 'https://www.lacocinatradicional.mx',
                 'codigo_promocional' => 'TRADICION15',
                 'descripcion_codigo_promocional' => '15% de descuento en platillos tradicionales',
-                'imagen' => null
+                'img' => null
             ],
             [
                 'nombre' => 'Sushi Master',
@@ -44,7 +44,7 @@ class RestauranteSeeder extends Seeder
                 'pagina_web' => 'https://www.sushimaster.com',
                 'codigo_promocional' => 'SUSHI10',
                 'descripcion_codigo_promocional' => '10% de descuento en rolls especiales',
-                'imagen' => null
+                'img' => null
             ],
             [
                 'nombre' => 'Pizzeria Italiana',
@@ -55,7 +55,7 @@ class RestauranteSeeder extends Seeder
                 'pagina_web' => null,
                 'codigo_promocional' => 'ITALIA25',
                 'descripcion_codigo_promocional' => '25% de descuento en pizzas medianas y grandes',
-                'imagen' => null
+                'img' => null
             ],
             [
                 'nombre' => 'Café del Centro',
@@ -66,7 +66,7 @@ class RestauranteSeeder extends Seeder
                 'pagina_web' => 'https://www.cafedelcentro.com',
                 'codigo_promocional' => null,
                 'descripcion_codigo_promocional' => null,
-                'imagen' => null
+                'img' => null
             ]
         ];
 
