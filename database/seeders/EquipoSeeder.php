@@ -13,37 +13,52 @@ class EquipoSeeder extends Seeder
      */
     public function run(): void
     {
-        $eventos = Evento::all();
+        $evento = Evento::first();
 
+        // Equipos para usuarios de prueba
         $equipos = [
             [
-                'nombre_equipo' => 'Los Sabores del Norte',
-                'evento_id' => $eventos->first()->id,
-                'entidad_federativa' => 'Nuevo León',
-                'estatus_del_equipo' => 'activo',
-                'nombre_anfitrion' => 'María González',
-                'telefono_anfitrion' => '8181234567',
-                'correo_anfitrion' => 'maria.gonzalez@email.com'
-            ],
-            [
-                'nombre_equipo' => 'Cocineros del Centro',
-                'evento_id' => $eventos->first()->id,
+                'nombre_equipo' => 'Equipo Prueba 1',
+                'evento_id' => $evento->id,
                 'entidad_federativa' => 'Ciudad de México',
                 'estatus_del_equipo' => 'activo',
-                'nombre_anfitrion' => 'Carlos Rodríguez',
+                'nombre_anfitrion' => 'Usuario Prueba 1',
                 'telefono_anfitrion' => '5512345678',
-                'correo_anfitrion' => 'carlos.rodriguez@email.com'
+                'correo_anfitrion' => 'prueba1@cecyte.com'
             ],
             [
-                'nombre_equipo' => 'Gastrónomos del Sur',
-                'evento_id' => $eventos->get(1)->id,
-                'entidad_federativa' => 'Oaxaca',
+                'nombre_equipo' => 'Equipo Prueba 2',
+                'evento_id' => $evento->id,
+                'entidad_federativa' => 'Jalisco',
                 'estatus_del_equipo' => 'activo',
-                'nombre_anfitrion' => 'Ana Martínez',
-                'telefono_anfitrion' => '9512345678',
-                'correo_anfitrion' => 'ana.martinez@email.com'
+                'nombre_anfitrion' => 'Usuario Prueba 2',
+                'telefono_anfitrion' => '3312345678',
+                'correo_anfitrion' => 'prueba2@cecyte.com'
             ]
         ];
+
+        // Estados de México
+        $estados = [
+            'Aguascalientes', 'Baja California', 'Baja California Sur', 'Campeche', 
+            'Chiapas', 'Chihuahua', 'Ciudad de México', 'Coahuila', 'Colima', 
+            'Durango', 'Guanajuato', 'Guerrero', 'Hidalgo', 'Jalisco', 'México', 
+            'Michoacán', 'Morelos', 'Nayarit', 'Nuevo León', 'Oaxaca', 'Puebla', 
+            'Querétaro', 'Quintana Roo', 'San Luis Potosí', 'Sinaloa', 'Sonora', 
+            'Tabasco', 'Tamaulipas', 'Tlaxcala', 'Veracruz', 'Yucatán', 'Zacatecas'
+        ];
+
+        // Crear equipos para cada estado
+        foreach ($estados as $estado) {
+            $equipos[] = [
+                'nombre_equipo' => 'Equipo ' . $estado,
+                'evento_id' => $evento->id,
+                'entidad_federativa' => $estado,
+                'estatus_del_equipo' => 'activo',
+                'nombre_anfitrion' => 'Representante ' . $estado,
+                'telefono_anfitrion' => '5551234567',
+                'correo_anfitrion' => strtolower(str_replace(' ', '', $estado)) . '@cecyte.com'
+            ];
+        }
 
         foreach ($equipos as $equipo) {
             Equipo::create($equipo);

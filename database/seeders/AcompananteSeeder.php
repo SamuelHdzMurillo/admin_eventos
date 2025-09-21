@@ -13,31 +13,17 @@ class AcompananteSeeder extends Seeder
      */
     public function run(): void
     {
-        $equipos = Equipo::all();
+        $equipo = Equipo::first();
 
-        $acompanantes = [
-            [
-                'equipo_id' => $equipos->first()->id,
-                'nombre_acompanante' => 'Dr. Roberto Silva',
-                'rol' => 'Asesor Académico',
-                'puesto' => 'Profesor Titular',
-                'talla' => 'L',
-                'telefono' => '8183333333',
-                'email' => 'roberto.silva@email.com'
-            ],
-            [
-                'equipo_id' => $equipos->first()->id,
-                'nombre_acompanante' => 'Lic. Patricia Morales',
-                'rol' => 'Coordinadora',
-                'puesto' => 'Coordinadora de Eventos',
-                'talla' => 'M',
-                'telefono' => '8184444444',
-                'email' => 'patricia.morales@email.com'
-            ]
-        ];
-
-        foreach ($acompanantes as $acompanante) {
-            Acompanante::create($acompanante);
-        }
+        // Solo un acompañante de ejemplo
+        Acompanante::create([
+            'equipo_id' => $equipo->id,
+            'nombre_acompanante' => 'Dr. Roberto Silva',
+            'rol' => 'Asesor Académico',
+            'puesto' => 'Profesor Titular',
+            'talla' => 'L',
+            'telefono' => '8183333333',
+            'email' => 'roberto.silva@cecyte.com'
+        ]);
     }
 } 

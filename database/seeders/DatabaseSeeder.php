@@ -21,18 +21,18 @@ class DatabaseSeeder extends Seeder
 
         // Ejecutar seeders en orden de dependencias
         $this->call([
-            EventoSeeder::class,
-            UserSeeder::class,
-            EquipoSeeder::class,
-            ParticipanteSeeder::class,
-            AcompananteSeeder::class,
-            RecetaSeeder::class,
-            CedulaRegistroSeeder::class,
-            HospedajeSeeder::class,
-            RestauranteSeeder::class,
-            ComiteSeeder::class,
-            BuzonAsistenciaSeeder::class,
-            LugarInteresSeeder::class,
+            EventoSeeder::class,        // Primero el evento
+            UserSeeder::class,          // Luego los usuarios (admin, pruebas, estados)
+            EquipoSeeder::class,        // Después los equipos
+            ParticipanteSeeder::class,  // Participantes del primer equipo
+            AcompananteSeeder::class,   // Acompañantes del primer equipo
+            RecetaSeeder::class,        // Recetas del primer equipo
+            CedulaRegistroSeeder::class, // Cédula de registro del primer equipo
+            ComiteSeeder::class,        // Comité del evento
+            HospedajeSeeder::class,     // Hospedajes
+            RestauranteSeeder::class,   // Restaurantes
+            LugarInteresSeeder::class,  // Lugares de interés
+            BuzonAsistenciaSeeder::class, // Buzón de asistencia (al final)
         ]);
     }
 }
