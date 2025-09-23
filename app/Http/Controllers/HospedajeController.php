@@ -30,7 +30,7 @@ class HospedajeController extends Controller
             'nombre' => 'required|string|max:255',
             'direccion' => 'required|string',
             'numero_telefonico' => 'required|string|max:20',
-            'correo' => 'required|email|max:255',
+            'correo' => 'required|string|max:255',
             'img' => 'nullable|string|max:255'
         ]);
 
@@ -63,7 +63,7 @@ class HospedajeController extends Controller
             'nombre' => 'sometimes|string|max:255',
             'direccion' => 'sometimes|string',
             'numero_telefonico' => 'sometimes|string|max:20',
-            'correo' => 'sometimes|email|max:255',
+            'correo' => 'sometimes|string|max:255',
             'img' => 'nullable|string|max:255'
         ]);
 
