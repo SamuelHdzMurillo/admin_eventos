@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nombre_equipo');
             $table->foreignId('evento_id')->constrained('eventos')->onDelete('cascade');
             $table->string('entidad_federativa');
-            $table->enum('estatus_del_equipo', ['activo', 'inactivo', 'eliminado'])->default('activo');
+            $table->enum('estatus_del_equipo', ['activo', 'pendiente', 'eliminado'])->default('pendiente');
             $table->string('nombre_anfitrion');
             $table->string('telefono_anfitrion');
             $table->string('correo_anfitrion');

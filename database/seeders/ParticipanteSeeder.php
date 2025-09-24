@@ -31,6 +31,9 @@ class ParticipanteSeeder extends Seeder
             'semestre_participante' => '6to',
             'especialidad_participante' => 'Cocina Internacional',
             'seguro_facultativo' => true,
+            'numero_seguro_social' => '12345678901234567890',
+            'nombre_contacto_emergencia' => 'María Pérez',
+            'telefono_contacto_emergencia' => '8189999999',
             'tipo_sangre_participante' => 'O+',
             'alergico' => false,
             'alergias' => null

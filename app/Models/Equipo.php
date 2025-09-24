@@ -18,7 +18,8 @@ class Equipo extends Model
         'estatus_del_equipo',
         'nombre_anfitrion',
         'telefono_anfitrion',
-        'correo_anfitrion'
+        'correo_anfitrion',
+        'medida_gas_propano'
     ];
 
     // Relación con evento

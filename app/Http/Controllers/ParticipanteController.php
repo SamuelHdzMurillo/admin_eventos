@@ -41,6 +41,9 @@ class ParticipanteController extends Controller
             'semestre_participante' => 'required|string|max:50',
             'especialidad_participante' => 'required|string|max:255',
             'seguro_facultativo' => 'boolean',
+            'numero_seguro_social' => 'nullable|string|max:20',
+            'nombre_contacto_emergencia' => 'nullable|string|max:255',
+            'telefono_contacto_emergencia' => 'nullable|string|max:20',
             'tipo_sangre_participante' => 'required|string|max:10',
             'alergico' => 'boolean',
             'alergias' => 'nullable|string'
@@ -93,6 +96,9 @@ class ParticipanteController extends Controller
             'semestre_participante' => 'sometimes|string|max:50',
             'especialidad_participante' => 'sometimes|string|max:255',
             'seguro_facultativo' => 'sometimes|boolean',
+            'numero_seguro_social' => 'nullable|string|max:20',
+            'nombre_contacto_emergencia' => 'nullable|string|max:255',
+            'telefono_contacto_emergencia' => 'nullable|string|max:20',
             'tipo_sangre_participante' => 'sometimes|string|max:10',
             'alergico' => 'sometimes|boolean',
             'alergias' => 'nullable|string'

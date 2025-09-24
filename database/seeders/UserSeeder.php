@@ -20,7 +20,7 @@ class UserSeeder extends Seeder
         User::create([
             'name' => 'Administrador CECYTE',
             'email' => 'admin@cecyte.com',
-            'password' => Hash::make('admin123'),
+            'password' => Hash::make('CECYTE2025Admin!'),
             'role' => 'admin',
             'evento_id' => $evento?->id,
         ]);

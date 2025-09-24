@@ -30,10 +30,11 @@ class EquipoController extends Controller
             'nombre_equipo' => 'required|string|max:255',
             'evento_id' => 'required|exists:eventos,id',
             'entidad_federativa' => 'required|string|max:255',
-            'estatus_del_equipo' => 'required|in:activo,inactivo,eliminado',
+            'estatus_del_equipo' => 'required|in:activo,pendiente,no autorizado',
             'nombre_anfitrion' => 'required|string|max:255',
             'telefono_anfitrion' => 'required|string|max:20',
-            'correo_anfitrion' => 'required|email|max:255'
+            'correo_anfitrion' => 'required|email|max:255',
+            'medida_gas_propano' => 'nullable|numeric|min:0|max:999999.99'
         ]);
 
         $equipo = Equipo::create($request->all());
@@ -76,7 +77,8 @@ class EquipoController extends Controller
             'estatus_del_equipo' => 'sometimes|in:activo,inactivo,eliminado',
             'nombre_anfitrion' => 'sometimes|string|max:255',
             'telefono_anfitrion' => 'sometimes|string|max:20',
-            'correo_anfitrion' => 'sometimes|email|max:255'
+            'correo_anfitrion' => 'sometimes|email|max:255',
+            'medida_gas_propano' => 'nullable|numeric|min:0|max:999999.99'
         ]);
 
         $equipo->update($request->all());

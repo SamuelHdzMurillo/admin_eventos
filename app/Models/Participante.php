@@ -26,6 +26,9 @@ class Participante extends Model
         'semestre_participante',
         'especialidad_participante',
         'seguro_facultativo',
+        'numero_seguro_social',
+        'nombre_contacto_emergencia',
+        'telefono_contacto_emergencia',
         'tipo_sangre_participante',
         'alergico',
         'alergias'

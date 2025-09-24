@@ -21,19 +21,21 @@ class EquipoSeeder extends Seeder
                 'nombre_equipo' => 'Equipo Prueba 1',
                 'evento_id' => $evento->id,
                 'entidad_federativa' => 'Ciudad de México',
-                'estatus_del_equipo' => 'activo',
+                'estatus_del_equipo' => 'pendiente',
                 'nombre_anfitrion' => 'Usuario Prueba 1',
                 'telefono_anfitrion' => '5512345678',
-                'correo_anfitrion' => 'prueba1@cecyte.com'
+                'correo_anfitrion' => 'prueba1@cecyte.com',
+                'medida_gas_propano' => 15.50
             ],
             [
                 'nombre_equipo' => 'Equipo Prueba 2',
                 'evento_id' => $evento->id,
                 'entidad_federativa' => 'Jalisco',
-                'estatus_del_equipo' => 'activo',
+                'estatus_del_equipo' => 'pendiente',
                 'nombre_anfitrion' => 'Usuario Prueba 2',
                 'telefono_anfitrion' => '3312345678',
-                'correo_anfitrion' => 'prueba2@cecyte.com'
+                'correo_anfitrion' => 'prueba2@cecyte.com',
+                'medida_gas_propano' => 12.75
             ]
         ];
 
@@ -53,10 +55,11 @@ class EquipoSeeder extends Seeder
                 'nombre_equipo' => 'Equipo ' . $estado,
                 'evento_id' => $evento->id,
                 'entidad_federativa' => $estado,
-                'estatus_del_equipo' => 'activo',
+                'estatus_del_equipo' => 'pendiente',
                 'nombre_anfitrion' => 'Representante ' . $estado,
                 'telefono_anfitrion' => '5551234567',
-                'correo_anfitrion' => strtolower(str_replace(' ', '', $estado)) . '@cecyte.com'
+                'correo_anfitrion' => strtolower(str_replace(' ', '', $estado)) . '@cecyte.com',
+                'medida_gas_propano' => rand(10, 25) + (rand(0, 99) / 100) // Valores aleatorios entre 10.00 y 25.99
             ];
         }
 
