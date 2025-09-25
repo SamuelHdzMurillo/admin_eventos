@@ -28,11 +28,11 @@ class RestauranteController extends Controller
     {
         $request->validate([
             'nombre' => 'required|string|max:255',
-            'estatus' => 'required|in:activo,inactivo,cerrado',
-            'direccion' => 'required|string',
-            'telefono' => 'required|string|max:20',
-            'correo_electronico' => 'required|email|max:255',
-            'pagina_web' => 'nullable|url|max:255',
+            'estatus' => 'nullable|in:activo,inactivo,cerrado',
+            'direccion' => 'nullable|string',
+            'telefono' => 'nullable|string|max:20',
+            'correo_electronico' => 'nullable|string|max:255',
+            'pagina_web' => 'nullable|string|max:255',
             'codigo_promocional' => 'nullable|string|max:50',
             'descripcion_codigo_promocional' => 'nullable|string',
             'imagen' => 'nullable|string|max:500'
@@ -82,12 +82,12 @@ class RestauranteController extends Controller
         }
 
         $request->validate([
-            'nombre' => 'sometimes|required|string|max:255',
-            'estatus' => 'sometimes|required|in:activo,inactivo,cerrado',
-            'direccion' => 'sometimes|required|string',
-            'telefono' => 'sometimes|required|string|max:20',
-            'correo_electronico' => 'sometimes|required|email|max:255',
-            'pagina_web' => 'nullable|url|max:255',
+            'nombre' => 'required|string|max:255',
+            'estatus' => 'nullable|in:activo,inactivo,cerrado',
+            'direccion' => 'nullable|string',
+            'telefono' => 'nullable|string|max:20',
+            'correo_electronico' => 'nullable|string|max:255',
+            'pagina_web' => 'nullable|string|max:255',
             'codigo_promocional' => 'nullable|string|max:50',
             'descripcion_codigo_promocional' => 'nullable|string',
             'imagen' => 'nullable|string|max:500'
